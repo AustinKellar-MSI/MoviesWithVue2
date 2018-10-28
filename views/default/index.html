@@ -1,0 +1,26 @@
+
+{{ extend 'layout.html'}}
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<div id="app">
+    <div class="insert-movie">
+        <input v-model="newMovieTitle" type="text" placeholder="Title"/><br><br>
+        <textarea v-model="newMovieDescription" placeholder="Describe the movie"></textarea><br><br>
+        <input v-model="newMovieRating" type="text" placeholder="Rate the movie"/><br><br>
+        <button v-on:click="submitMovie">Submit Movie</button>
+    </div><br><br>
+
+    <h1>Movies</h1>
+    
+    <div class="movies">
+        <div v-for="movie in movies" class="movie-box">
+        <p>${ movie.title }</p>
+        <p>${ movie.description }</p>
+        <p>${ movie.rating }</p>
+        </div>
+    </div>
+</div>
+
+<script src="{{=URL('static','js/index.js')}}"></script>
+
