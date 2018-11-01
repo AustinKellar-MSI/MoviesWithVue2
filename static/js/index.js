@@ -21,6 +21,21 @@ var insertMovie = function() {
     });
 };
 
+var deleteMovie = function(id) {
+    $.post('/moviesWithVue/api/delete_movie/', {id: id}, function(response) {
+        if (response == 'movie deleted!') {
+            // if database delete was successful, delete the movie from the vue array
+            for (var i=0; i<app.movies.length; i++) {
+                if (app.movies[i].id == id) {
+                    app.movies.splice(i, 1);
+                }
+            }
+        } else {
+            alert('Could not delete movie!');
+        }
+    });
+};
+
 var app = new Vue({
     el: '#app',
     delimiters: ['${', '}'],
@@ -32,7 +47,8 @@ var app = new Vue({
         movies: []
     },
     methods: {
-        submitMovie: insertMovie
+        submitMovie: insertMovie,
+        deleteMovie: deleteMovie
     }
 });
 

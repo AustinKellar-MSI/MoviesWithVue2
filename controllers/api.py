@@ -10,3 +10,7 @@ def insert_movie():
 def get_all_movies():
     movies = db(db.movies).select() # this asks the database for all entries in the movies table
     return response.json(dict(movies=movies)) # return all movies as a JSON object back to JavaScript
+
+def delete_movie():
+    db(db.movies.id == request.vars.id).delete()
+    return "movie deleted!"
