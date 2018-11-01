@@ -1,3 +1,26 @@
+var onPageLoad = function() {
+    $.getJSON('/moviesWithVue/api/get_all_movies/',
+        function(response) {
+            app.movies = response.movies;
+        }
+    );
+};
+
+var insertMovie = function() {
+    var newMovie = {
+        title: app.newMovieTitle,
+        description: app.newMovieDescription,
+        rating: app.newMovieRating
+    };
+    $.post('/moviesWithVue/api/insert_movie/', newMovie, function(response) { 
+        if (response == 'movie inserted!') {
+            app.movies.push(newMovie);
+        } else {
+            alert('The new movie could not be inserted!');
+        }
+    });
+};
+
 var app = new Vue({
     el: '#app',
     delimiters: ['${', '}'],
@@ -9,35 +32,8 @@ var app = new Vue({
         movies: []
     },
     methods: {
-        submitMovie: function() {
-            this.movies.push({
-                title: this.newMovieTitle,
-                description: this.newMovieDescription,
-                rating: this.newMovieRating
-            });
-        }
+        submitMovie: insertMovie
     }
 });
-
-var onPageLoad = function() {
-    // imagine here instead of hard-coding, you could grab movies from the database and set app.movies equal to the result
-    app.movies = [
-        { 
-            title: "Shrek",
-            description: "ogres and onions",
-            rating: "5 stars!"
-        },
-        {
-            title: "Shrek 2",
-            description: "more ogres, less onions",
-            rating: "4 stars!"
-        },
-        {
-            title: "Finding Nemo",
-            description: "No ogres, no onions",
-            rating: "1 star :("
-        }
-    ];
-};
 
 onPageLoad();

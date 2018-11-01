@@ -53,3 +53,11 @@ CREATE TABLE "auth_cas"(
     "renew" CHAR(1)
 );
 success!
+timestamp: 2018-10-31T19:00:37.279032
+CREATE TABLE "movies"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "title" CHAR(512),
+    "description" TEXT,
+    "rating" CHAR(512)
+);
+success!
